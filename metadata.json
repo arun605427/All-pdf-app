@@ -1,0 +1,8 @@
+{
+  "name": "PDFMaster Pro - All-in-One PDF Suite",
+  "description": "Ultra-fast, professional all-in-one PDF tool for Android 9+ and Web. Layout N-up, remove & reorder pages, compress, convert JPG to PDF & PDF to JPG, merge, split, sign, lock and unlock.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

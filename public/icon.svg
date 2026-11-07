@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="foldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#0f172a" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <!-- Document Body -->
+  <g filter="url(#shadow)">
+    <path d="M144 96 h144 l96 96 v224 a24 24 0 0 1 -24 24 H144 a24 24 0 0 1 -24 -24 V120 a24 24 0 0 1 24 -24 z" fill="#ffffff"/>
+    <path d="M288 96 v76 a20 20 0 0 0 20 20 h76 z" fill="url(#foldGrad)"/>
+  </g>
+  <!-- PDF Badge -->
+  <rect x="156" y="270" width="200" height="72" rx="16" fill="url(#accentGrad)"/>
+  <text x="256" y="322" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="4">PDF</text>
+  <!-- Mini feature pills -->
+  <circle cx="180" cy="386" r="10" fill="#3b82f6"/>
+  <circle cx="212" cy="386" r="10" fill="#10b981"/>
+  <circle cx="244" cy="386" r="10" fill="#f59e0b"/>
+  <rect x="272" y="380" width="60" height="12" rx="6" fill="#94a3b8"/>
+</svg>

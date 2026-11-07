@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* Animations */
+@keyframes tabGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.animate-tab-glow {
+  animation: tabGlow 3s ease-in-out infinite;
+}
+
+/* Safe area insets for Android notches & gesture bars */
+.safe-pb {
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+}
+.safe-pt {
+  padding-top: max(12px, env(safe-area-inset-top, 12px));
+}
