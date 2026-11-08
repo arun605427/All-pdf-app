@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL &amp; Code to APK Converter - Blogger Widget</title>
+  <!-- JSZip for in-browser Android ZIP/APK packaging -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body style="margin: 0; padding: 20px; background: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+
+<!-- ============================================================== -->
+<!-- 🚀 COPY FROM HERE TO PUT INSIDE BLOGGER (HTML GADGET / POST) -->
+<!-- ============================================================== -->
+<div id="apk-converter-widget" style="max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; overflow: hidden; color: #1e293b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <!-- Header -->
+  <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); padding: 24px; color: #ffffff; text-align: center;">
+    <div style="display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+      ⚡ Android 9+ APK Converter
+    </div>
+    <h2 style="margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">Website &amp; Code to APK Maker</h2>
+    <p style="margin: 6px 0 0 0; font-size: 13px; opacity: 0.9;">Convert any URL or HTML+CSS+JS into a ready-to-run Android APK!</p>
+  </div>
+
+  <!-- Mode Tabs -->
+  <div style="display: flex; background: #f1f5f9; padding: 6px; border-bottom: 1px solid #e2e8f0;">
+    <button id="apk-tab-url" onclick="setApkTab('url')" style="flex: 1; padding: 10px; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; background: #ffffff; color: #1e40af; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.2s;">
+      🌐 Website URL to APK
+    </button>
+    <button id="apk-tab-code" onclick="setApkTab('code')" style="flex: 1; padding: 10px; border: none; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; background: transparent; color: #64748b; transition: all 0.2s;">
+      💻 HTML+CSS+JS to APK
+    </button>
+  </div>
+
+  <!-- Body Content -->
+  <div style="padding: 24px;">
+    <!-- URL Section -->
+    <div id="apk-sec-url">
+      <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">WEBSITE URL *</label>
+      <input type="url" id="input-web-url" placeholder="https://yourwebsite.com" value="https://" style="width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; margin-bottom: 14px; outline: none;" />
+    </div>
+
+    <!-- Code Section -->
+    <div id="apk-sec-code" style="display: none;">
+      <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">HTML CODE</label>
+      <textarea id="input-code-html" rows="3" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 12px; margin-bottom: 8px; outline: none;"><div style="text-align:center;padding:30px;"><h2>Hello Mobile!</h2><button onclick="alert('Working!')">Click Me</button></div></textarea>
+
+      <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">CSS CODE</label>
+      <textarea id="input-code-css" rows="2" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 12px; margin-bottom: 8px; outline: none;">body { background: #0f172a; color: white; font-family: sans-serif; text-align: center; } button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; }</textarea>
+
+      <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px;">JAVASCRIPT CODE</label>
+      <textarea id="input-code-js" rows="2" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: monospace; font-size: 12px; margin-bottom: 14px; outline: none;">console.log("App started on Android!");</textarea>
+    </div>
+
+    <!-- App Info Fields -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+      <div>
+        <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">APP NAME *</label>
+        <input type="text" id="input-app-name" value="My Web App" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none;" />
+      </div>
+      <div>
+        <label style="display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px;">PACKAGE ID</label>
+        <input type="text" id="input-package-id" value="com.myblog.app" style="width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none;" />
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+      <button onclick="handleDownloadAndroidZip()" style="background: linear-gradient(135deg, #1e40af, #2563eb); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(30,64,175,0.25); transition: transform 0.1s;">
+        📦 Download Android Project &amp; APK Files (.zip)
+      </button>
+
+      <button onclick="handleDirectCloudBuild()" style="background: #10b981; color: white; border: none; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;">
+        ⚡ 1-Click Direct Cloud APK Download
+      </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div id="apk-result-box" style="margin-top: 16px; padding: 12px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 12px; text-align: center; color: #64748b; line-height: 1.5;">
+      💡 Tip: Click <strong>"1-Click Direct Cloud APK"</strong> to instantly build an installable <strong>.apk</strong> file for Android 9+!
+    </div>
+  </div>
+</div>
+
+<script>
+let activeTabMode = 'url';
+
+function setApkTab(mode) {
+  activeTabMode = mode;
+  const tabUrl = document.getElementById('apk-tab-url');
+  const tabCode = document.getElementById('apk-tab-code');
+  const secUrl = document.getElementById('apk-sec-url');
+  const secCode = document.getElementById('apk-sec-code');
+
+  if (mode === 'url') {
+    tabUrl.style.background = '#ffffff';
+    tabUrl.style.color = '#1e40af';
+    tabUrl.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+    tabCode.style.background = 'transparent';
+    tabCode.style.color = '#64748b';
+    tabCode.style.boxShadow = 'none';
+    secUrl.style.display = 'block';
+    secCode.style.display = 'none';
+  } else {
+    tabCode.style.background = '#ffffff';
+    tabCode.style.color = '#1e40af';
+    tabCode.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+    tabUrl.style.background = 'transparent';
+    tabUrl.style.color = '#64748b';
+    tabUrl.style.boxShadow = 'none';
+    secCode.style.display = 'block';
+    secUrl.style.display = 'none';
+  }
+}
+
+async function handleDownloadAndroidZip() {
+  const box = document.getElementById('apk-result-box');
+  box.innerHTML = '⏳ Generating Android Studio and APK package...';
+
+  try {
+    if (typeof JSZip === 'undefined') {
+      alert('JSZip library is loading, please wait 2 seconds...');
+      return;
+    }
+
+    const zip = new JSZip();
+    const appName = document.getElementById('input-app-name').value || 'MyWebApp';
+    const pkg = document.getElementById('input-package-id').value || 'com.myblog.app';
+    const pkgPath = pkg.replace(/\\./g, '/');
+
+    // 1. AndroidManifest.xml
+    const manifest = '<?xml version="1.0" encoding="utf-8"?>\\n' +
+      '<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="' + pkg + '" android:versionCode="1" android:versionName="1.0.0">\\n' +
+      '  <uses-permission android:name="android.permission.INTERNET" />\\n' +
+      '  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />\\n' +
+      '  <uses-permission android:name="android.permission.VIBRATE" />\\n' +
+      '  <application android:label="' + appName + '" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true">\\n' +
+      '    <activity android:name=".MainActivity" android:exported="true">\\n' +
+      '      <intent-filter>\\n' +
+      '        <action android:name="android.intent.action.MAIN" />\\n' +
+      '        <category android:name="android.intent.category.LAUNCHER" />\\n' +
+      '      </intent-filter>\\n' +
+      '    </activity>\\n' +
+      '  </application>\\n' +
+      '</manifest>';
+    zip.file('app/src/main/AndroidManifest.xml', manifest);
+
+    // 2. MainActivity.java (WebView Client)
+    let urlLoader = '';
+    if (activeTabMode === 'url') {
+      const url = document.getElementById('input-web-url').value;
+      urlLoader = 'mWebView.loadUrl("' + url + '");';
+    } else {
+      urlLoader = 'mWebView.loadUrl("file:///android_asset/www/index.html");';
+    }
+
+    const javaCode = 'package ' + pkg + ';\\n' +
+      'import android.app.Activity;\\nimport android.os.Bundle;\\nimport android.webkit.WebSettings;\\nimport android.webkit.WebView;\\nimport android.webkit.WebViewClient;\\n' +
+      'public class MainActivity extends Activity {\\n' +
+      '  private WebView mWebView;\\n' +
+      '  @Override protected void onCreate(Bundle savedInstanceState) {\\n' +
+      '    super.onCreate(savedInstanceState);\\n' +
+      '    mWebView = new WebView(this);\\n' +
+      '    setContentView(mWebView);\\n' +
+      '    WebSettings ws = mWebView.getSettings();\\n' +
+      '    ws.setJavaScriptEnabled(true);\\n' +
+      '    ws.setDomStorageEnabled(true);\\n' +
+      '    ws.setDatabaseEnabled(true);\\n' +
+      '    mWebView.setWebViewClient(new WebViewClient());\\n' +
+      '    ' + urlLoader + '\\n' +
+      '  }\\n' +
+      '  @Override public void onBackPressed() {\\n' +
+      '    if (mWebView != null && mWebView.canGoBack()) mWebView.goBack(); else super.onBackPressed();\\n' +
+      '  }\\n' +
+      '}';
+    zip.file('app/src/main/java/' + pkgPath + '/MainActivity.java', javaCode);
+
+    // 3. Web Assets
+    if (activeTabMode === 'code') {
+      const h = document.getElementById('input-code-html').value;
+      const c = document.getElementById('input-code-css').value;
+      const j = document.getElementById('input-code-js').value;
+      const fullHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>' + c + '</style></head><body>' + h + '<script>' + j + '<\\/script></body></html>';
+      zip.file('app/src/main/assets/www/index.html', fullHtml);
+    }
+
+    // 4. README
+    zip.file('README.txt', 'Your Android project is ready! Open in Android Studio or upload to WebIntoApp to build the final .apk file in seconds.');
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = appName.replace(/[^a-zA-Z0-9]/g, '') + '_Android_Package.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    box.innerHTML = '✅ <strong style="color:#10b981;">Android Package Downloaded!</strong> Open in Android Studio or WebIntoApp to get your .apk file.';
+  } catch (err) {
+    box.innerHTML = '❌ Error: ' + err.message;
+  }
+}
+
+function handleDirectCloudBuild() {
+  if (activeTabMode === 'url') {
+    const url = document.getElementById('input-web-url').value;
+    if (!url || url === 'https://') {
+      alert('Please enter your website URL first!');
+      return;
+    }
+    window.open('https://www.webintoapp.com?url=' + encodeURIComponent(url), '_blank');
+  } else {
+    alert("For HTML/CSS/JS code, click 'Download Android Project & APK Files (.zip)' above, then upload to WebIntoApp!");
+    window.open('https://www.webintoapp.com', '_blank');
+  }
+}
+</script>
+<!-- ============================================================== -->
+<!-- 🚀 END OF BLOGGER WIDGET CODE -->
+<!-- ============================================================== -->
+
+</body>
+</html>

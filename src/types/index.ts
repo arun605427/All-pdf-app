@@ -5,7 +5,8 @@ export type ActiveTab =
   | 'converter' 
   | 'mergeSplit' 
   | 'security' 
-  | 'signWatermark';
+  | 'signWatermark'
+  | 'apkConverter';
 
 export interface FileItem {
   id: string;

@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm hover:shadow active:scale-95 transition"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Install App</span>
+              <span>Install / Get APK</span>
             </button>
           )}
 

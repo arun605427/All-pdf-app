@@ -10,6 +10,7 @@ import { ConverterTool } from './components/tools/ConverterTool';
 import { MergeSplitTool } from './components/tools/MergeSplitTool';
 import { SecurityTool } from './components/tools/SecurityTool';
 import { SignWatermarkTool } from './components/tools/SignWatermarkTool';
+import { ApkConverterTool } from './components/tools/ApkConverterTool';
 import { WifiOff } from 'lucide-react';
 import type { ActiveTab } from './types';
 
@@ -39,6 +40,7 @@ export default function App() {
         'mergeSplit',
         'security',
         'signWatermark',
+        'apkConverter',
       ];
       if (tabParam && validTabs.includes(tabParam)) {
         setActiveTab(tabParam);
@@ -130,6 +132,7 @@ export default function App() {
         {activeTab === 'mergeSplit' && <MergeSplitTool />}
         {activeTab === 'security' && <SecurityTool />}
         {activeTab === 'signWatermark' && <SignWatermarkTool />}
+        {activeTab === 'apkConverter' && <ApkConverterTool />}
       </main>
 
       {/* Footer Info & Guides */}

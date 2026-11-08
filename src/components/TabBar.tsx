@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, Scissors, FileArchive, ArrowLeftRight, Layers, Lock, PenTool } from 'lucide-react';
+import { LayoutGrid, Scissors, FileArchive, ArrowLeftRight, Layers, Lock, PenTool, Smartphone } from 'lucide-react';
 import { useHaptic } from '../hooks/useHaptic';
 import type { ActiveTab } from '../types';
 
@@ -19,6 +19,7 @@ export const TabBar: React.FC<TabBarProps> = ({ activeTab, onSelectTab }) => {
     { id: 'mergeSplit', label: 'Merge & Split', icon: Layers },
     { id: 'security', label: 'Password', icon: Lock },
     { id: 'signWatermark', label: 'Sign & Watermark', icon: PenTool },
+    { id: 'apkConverter', label: 'APK Maker (Blogger)', icon: Smartphone },
   ];
 
   return (
